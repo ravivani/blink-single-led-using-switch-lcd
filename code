@@ -1,0 +1,92 @@
+/***
+-----------------------------------------------------------------
+
+This circuit description is ON & OFF STATE of LED using SWITCH and interfacing with LCD display.
+
+In this circuit it contains single LED.
+
+LCD(16*2) is an electronic display module that uses liquid crystal to produce a visible text.
+
+16*2 translates a display 16 characters per line in 2 such lines.
+
+Postive terminal of LED is a Anode , Negative terminal of LED is a cathode.
+
+For LED there are two pins which are anode and cathode.
+
+Anode is connected to power , in between one resister is used to avoid the LED breaks ,it also control current flow.
+
+Resistor formule is R = V/I,for LED min 220 ohms is used.
+
+Cathode is connected to ground.
+
+Pins can be connected to either analog nor digital pins.
+
+-----------------------------------------------------------------
+***/
+
+// Header file for LCD display.
+#include<LiquidCrystal.h>
+
+// rs , en , d4 , d5 , d6 , d7 are the pins.
+LiquidCrystal lcd(2 , 3 , 4 , 5 , 6 , 7);
+
+// Here we are initializing the pins numbers to the variable.
+int led = 12;
+int sw = 13;
+
+void setup()
+{
+  // starting LCD display.
+  lcd.begin(16,2);
+  
+  // Assigning the variable to the pinMode.
+  pinMode(led, OUTPUT);
+  pinMode(sw, INPUT);
+  
+  // Initializing the pins LOW STATE.
+  digitalWrite(led, LOW);
+  digitalWrite(sw, HIGH);
+
+  // Initially clearing the display & print.
+  lcd.clear();
+  lcd.print(" WELCOME ");
+  delay(1000);
+  // Move to next line in LCD display.
+  lcd.setCursor(0,1);
+  lcd.print(" LED ");
+  delay(1000);
+}
+
+void loop()
+{
+  /***
+  -------------------------------------------------------------
+  Pre Condition: The LED is in the LOW state before starting.
+  Post Condition: The LED will ON when switch is LOW.
+  ---------------------------------------------------------------
+  ***/
+  // Assigning the variable to the read.
+  int switch1 = digitalRead(sw);
+  // LED is ON when switch is LOW.
+  if(switch1 == LOW)
+  {
+    // LED ON display on LCD display.
+    lcd.clear();
+    lcd.print(" LED ON ");
+    delay(1000);
+  // LED is ON when it is HIGH
+    digitalWrite(led, HIGH);
+    delay(1000);
+  }
+  // LED is OFF in else state.
+  else
+  {
+    // LED OFF display on LCD display.
+    lcd.clear();
+    lcd.print(" LED OFF ");
+    delay(1000);
+  // LED is OFF when it is LOW
+    digitalWrite(led, LOW);
+    delay(1000);
+  }
+}
